@@ -71,7 +71,7 @@ try {
     core.setFailed(e.message);
   });
 
-  req.write(postData);
+  // req.write(postData);
   req.end();
 
 } catch (error) {

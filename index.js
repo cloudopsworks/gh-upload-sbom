@@ -74,7 +74,7 @@ try {
       core.setFailed('Failed response status code:' + res.statusCode);
     }
     res.on('data', (d) => {
-      console.debug(`Response: ${d}`);
+      console.log(`Response: ${d}`);
     });
   });
 

@@ -32,12 +32,21 @@ try {
     encodedBomContents = encodedBomContents.substring(4);
   }
 
-  const bomPayload = {
-    project: project,
-    projectName: projectName,
-    projectVersion: projectVersion,
-    autoCreate: autoCreate,
-    bom: encodedBomContents
+  var bomPayload = {}
+
+  if ( project != "" ) {
+    bomPayload = {
+      project: project,
+      autoCreate: false,
+      bom: encodedBomContents
+    }
+  } else {
+    const bomPayload = {
+      projectName: projectName,
+      projectVersion: projectVersion,
+      autoCreate: autoCreate,
+      bom: encodedBomContents
+    }
   }
 
   const postData = JSON.stringify(bomPayload);

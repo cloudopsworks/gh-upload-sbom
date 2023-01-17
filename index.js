@@ -32,7 +32,7 @@ try {
     encodedBomContents = encodedBomContents.substring(4);
   }
 
-  var bomPayload = {}
+  let bomPayload = {}
 
   if ( project != "" ) {
     bomPayload = {

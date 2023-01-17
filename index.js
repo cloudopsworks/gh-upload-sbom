@@ -64,6 +64,9 @@ try {
     } else {
       core.setFailed('Failed response status code:' + res.statusCode);
     }
+    res.on('data', (d) => {
+      console.debug(`Response: ${d}`);
+    });
   });
 
   req.on('error', (e) => {

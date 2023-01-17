@@ -25,21 +25,22 @@ try {
   }
 
   console.log(`Reading BOM: ${bomFilename}...`);
-  const bomContents = fs.readFileSync(bomFilename);
-  let encodedBomContents = Buffer.from(bomContents).toString('base64');
-  if (encodedBomContents.startsWith('77u/')) {
-    encodedBomContents = encodedBomContents.substring(4);
-  }
+  // const bomContents = fs.readFileSync(bomFilename);
+  // let encodedBomContents = Buffer.from(bomContents).toString('base64');
+  // if (encodedBomContents.startsWith('77u/')) {
+  //   encodedBomContents = encodedBomContents.substring(4);
+  // }
 
   const bomPayload = {
     project: project,
     projectName: projectName,
     projectVersion: projectVersion,
     autoCreate: autoCreate,
-    bom: encodedBomContents
+    bom: fs.createReadStream(bomFilename)
+    // bom: encodedBomContents
   }
 
-  const postData = JSON.stringify(bomPayload);
+  // const postData = JSON.stringify(bomPayload);
 
   const requestOptions = {
     hostname: serverHostname,
@@ -49,9 +50,9 @@ try {
     method: 'POST',
     headers: {
       'X-API-Key': apiKey,
-      'Content-Type': 'application/json',
-      'Content-Length': Buffer.byteLength(postData)
-    }
+      'Content-Type': 'multipart/form-data'
+    },
+    formData: bomPayload
   }
 
   console.log(`Uploading to Dependency-Track server ${serverHostname}...`);

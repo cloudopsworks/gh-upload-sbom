@@ -25,34 +25,34 @@ try {
   }
 
   console.log(`Reading BOM: ${bomFilename}...`);
-  // const bomContents = fs.readFileSync(bomFilename);
-  // let encodedBomContents = Buffer.from(bomContents).toString('base64');
-  // if (encodedBomContents.startsWith('77u/')) {
-  //   encodedBomContents = encodedBomContents.substring(4);
-  // }
+  const bomContents = fs.readFileSync(bomFilename);
+  let encodedBomContents = Buffer.from(bomContents).toString('base64');
+  if (encodedBomContents.startsWith('77u/')) {
+    console.debug("Encoded conntent starts with 77u");
+    encodedBomContents = encodedBomContents.substring(4);
+  }
 
   const bomPayload = {
     project: project,
     projectName: projectName,
     projectVersion: projectVersion,
     autoCreate: autoCreate,
-    body: fs.createReadStream(bomFilename)
-    // bom: encodedBomContents
+    bom: encodedBomContents
   }
 
-  // const postData = JSON.stringify(bomPayload);
+  const postData = JSON.stringify(bomPayload);
+  console.debug(`Debug Post Data: ${postData}`);
 
   const requestOptions = {
     hostname: serverHostname,
     port: port,
     protocol: protocol + ':',
     path: '/api/v1/bom',
-    method: 'POST',
+    method: 'PUT',
     headers: {
       'X-API-Key': apiKey,
-      'Content-Type': 'multipart/form-data'
-    },
-    formData: bomPayload
+      'Content-Type': 'application/json'
+    }
   }
 
   console.log(`Uploading to Dependency-Track server ${serverHostname}...`);
@@ -71,7 +71,7 @@ try {
     core.setFailed(e.message);
   });
 
-  // req.write(postData);
+  req.write(postData);
   req.end();
 
 } catch (error) {

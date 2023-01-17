@@ -36,7 +36,7 @@ try {
     projectName: projectName,
     projectVersion: projectVersion,
     autoCreate: autoCreate,
-    bom: fs.createReadStream(bomFilename)
+    body: fs.createReadStream(bomFilename)
     // bom: encodedBomContents
   }
 

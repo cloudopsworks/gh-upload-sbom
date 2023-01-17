@@ -46,7 +46,7 @@ try {
     port: port,
     protocol: protocol + ':',
     path: '/api/v1/bom',
-    method: 'PUT',
+    method: 'POST',
     headers: {
       'X-API-Key': apiKey,
       'Content-Type': 'application/json',
